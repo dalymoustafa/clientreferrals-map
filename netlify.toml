@@ -1,0 +1,6 @@
+[build]
+  command = "node fetch-offices.js"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "18"
