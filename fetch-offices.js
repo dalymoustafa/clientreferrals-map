@@ -164,16 +164,16 @@ async function main() {
           const point = map.latLngToContainerPoint([o.lat, o.lng]);
           tooltip.innerHTML = \`\${o.hq ? '<span class="popup-hq">Headquarters</span>' : ''}<div class="popup-city">\${o.city}</div><div class="popup-addr">\${o.address}</div>\`;
           tooltip.style.display = 'block';
-          tooltip.style.left = (point.x - 80) + 'px';
+          const mapWidth = map.getContainer().offsetWidth;
+          let left = point.x - 80;
+          if (left < 5) left = 5;
+          if (left + 160 > mapWidth) left = mapWidth - 165;
+          tooltip.style.left = left + 'px';
           tooltip.style.top = (point.y + 16) + 'px';
         });
       });
 
-      if (OFFICES.length > 1) {
-        map.fitBounds(OFFICES.map(o => [o.lat, o.lng]), { padding: [30, 30], maxZoom: 4 });
-      } else {
-        map.setView([20, 10], 2);
-      }
+      map.setView([20, 10], 2);
     });
   map.setView([20, 10], 2);
 <\/script>
